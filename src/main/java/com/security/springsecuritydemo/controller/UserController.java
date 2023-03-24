@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("user-register")
     public ResponseEntity<?> saveUser(@RequestBody User user) {
         Set<UserRole> userRoleSet = new HashSet<>();
-        userRoleSet.add(UserRole.ADMIN);
+        userRoleSet.add(UserRole.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoleSet);
         userRepository.save(user);

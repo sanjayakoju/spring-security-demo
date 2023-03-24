@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    //    @Query(value = "select * from user where username = ?1", nativeQuery = true)
-    @EntityGraph(attributePaths = {"roles"})
+    @Query(value = "select * from user where username = ?1", nativeQuery = true)
+//    @EntityGraph(attributePaths = {"roles"})
     Optional<User> findByUsername(String username);
 }
