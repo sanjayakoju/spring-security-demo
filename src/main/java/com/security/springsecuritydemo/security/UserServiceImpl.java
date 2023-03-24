@@ -2,6 +2,7 @@ package com.security.springsecuritydemo.security;
 
 import com.security.springsecuritydemo.model.User;
 import com.security.springsecuritydemo.repository.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +19,10 @@ public class UserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+
         System.out.println("User from Service : "+user.getUsername());
+        Hibernate.initialize(user.getRoles());
+        System.out.println("Roles from Service : "+user.getRoles());
         return new UserDetail(user);
     }
 }
